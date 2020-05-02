@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace AnnualizedGUI
@@ -32,6 +33,7 @@ namespace AnnualizedGUI
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.fundNameLabel = new System.Windows.Forms.Label();
             this.fundNameTextBox = new System.Windows.Forms.ComboBox();
             this.periodsLabel = new System.Windows.Forms.Label();
@@ -54,7 +56,7 @@ namespace AnnualizedGUI
             // 
             this.fundNameLabel.AutoSize = true;
             this.fundNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fundNameLabel.Location = new System.Drawing.Point(226, 45);
+            this.fundNameLabel.Location = new System.Drawing.Point(260, 45);
             this.fundNameLabel.Name = "fundNameLabel";
             this.fundNameLabel.Size = new System.Drawing.Size(78, 16);
             this.fundNameLabel.TabIndex = 12;
@@ -66,7 +68,7 @@ namespace AnnualizedGUI
             this.fundNameTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.fundNameTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.fundNameTextBox.FormattingEnabled = true;
-            this.fundNameTextBox.Location = new System.Drawing.Point(310, 45);
+            this.fundNameTextBox.Location = new System.Drawing.Point(344, 45);
             this.fundNameTextBox.Name = "fundNameTextBox";
             this.fundNameTextBox.Size = new System.Drawing.Size(366, 21);
             this.fundNameTextBox.TabIndex = 1;
@@ -75,7 +77,7 @@ namespace AnnualizedGUI
             // 
             this.periodsLabel.AutoSize = true;
             this.periodsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.periodsLabel.Location = new System.Drawing.Point(249, 86);
+            this.periodsLabel.Location = new System.Drawing.Point(283, 86);
             this.periodsLabel.Name = "periodsLabel";
             this.periodsLabel.Size = new System.Drawing.Size(55, 16);
             this.periodsLabel.TabIndex = 9;
@@ -84,7 +86,7 @@ namespace AnnualizedGUI
             // 
             // periods_textBox
             // 
-            this.periods_textBox.Location = new System.Drawing.Point(310, 86);
+            this.periods_textBox.Location = new System.Drawing.Point(344, 86);
             this.periods_textBox.Name = "periods_textBox";
             this.periods_textBox.Size = new System.Drawing.Size(366, 20);
             this.periods_textBox.TabIndex = 2;
@@ -104,7 +106,7 @@ namespace AnnualizedGUI
             // 
             this.currentNumSharesLabel.AutoSize = true;
             this.currentNumSharesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentNumSharesLabel.Location = new System.Drawing.Point(148, 135);
+            this.currentNumSharesLabel.Location = new System.Drawing.Point(182, 131);
             this.currentNumSharesLabel.Name = "currentNumSharesLabel";
             this.currentNumSharesLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.currentNumSharesLabel.Size = new System.Drawing.Size(156, 16);
@@ -114,7 +116,7 @@ namespace AnnualizedGUI
             // 
             // currentNumShares_TextBox
             // 
-            this.currentNumShares_TextBox.Location = new System.Drawing.Point(310, 135);
+            this.currentNumShares_TextBox.Location = new System.Drawing.Point(344, 131);
             this.currentNumShares_TextBox.Name = "currentNumShares_TextBox";
             this.currentNumShares_TextBox.Size = new System.Drawing.Size(148, 20);
             this.currentNumShares_TextBox.TabIndex = 4;
@@ -123,7 +125,7 @@ namespace AnnualizedGUI
             // 
             this.currentPriceLabel.AutoSize = true;
             this.currentPriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentPriceLabel.Location = new System.Drawing.Point(220, 179);
+            this.currentPriceLabel.Location = new System.Drawing.Point(254, 175);
             this.currentPriceLabel.Name = "currentPriceLabel";
             this.currentPriceLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.currentPriceLabel.Size = new System.Drawing.Size(84, 16);
@@ -133,7 +135,7 @@ namespace AnnualizedGUI
             // 
             // currentPriceTextBox
             // 
-            this.currentPriceTextBox.Location = new System.Drawing.Point(310, 179);
+            this.currentPriceTextBox.Location = new System.Drawing.Point(344, 175);
             this.currentPriceTextBox.Name = "currentPriceTextBox";
             this.currentPriceTextBox.Size = new System.Drawing.Size(148, 20);
             this.currentPriceTextBox.TabIndex = 5;
@@ -185,7 +187,7 @@ namespace AnnualizedGUI
             this.clearFieldsButton.Name = "clearFieldsButton";
             this.clearFieldsButton.Size = new System.Drawing.Size(130, 27);
             this.clearFieldsButton.TabIndex = 13;
-            this.clearFieldsButton.Text = "Clear All Fields";
+            this.clearFieldsButton.Text = "Clear Fields";
             this.clearFieldsButton.UseVisualStyleBackColor = true;
             this.clearFieldsButton.Click += new System.EventHandler(this.clearFieldsButton_Click);
             // 
@@ -203,22 +205,22 @@ namespace AnnualizedGUI
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.backButton.Location = new System.Drawing.Point(161, 234);
+            this.backButton.Image = ((System.Drawing.Image)(resources.GetObject("backButton.Image")));
+            this.backButton.Location = new System.Drawing.Point(161, 225);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(75, 28);
+            this.backButton.Size = new System.Drawing.Size(46, 37);
             this.backButton.TabIndex = 15;
-            this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // forwardButton
             // 
             this.forwardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.forwardButton.Location = new System.Drawing.Point(242, 234);
+            this.forwardButton.Image = ((System.Drawing.Image)(resources.GetObject("forwardButton.Image")));
+            this.forwardButton.Location = new System.Drawing.Point(213, 225);
             this.forwardButton.Name = "forwardButton";
-            this.forwardButton.Size = new System.Drawing.Size(75, 27);
+            this.forwardButton.Size = new System.Drawing.Size(52, 37);
             this.forwardButton.TabIndex = 16;
-            this.forwardButton.Text = "Forward";
             this.forwardButton.UseVisualStyleBackColor = true;
             this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
             // 
