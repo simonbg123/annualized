@@ -63,7 +63,7 @@ namespace AnnualizedGUI
 				"as well as a transaction history copied to the console.");
 			toolTip.SetToolTip(backButton, "Moves backwards into console history");
 			toolTip.SetToolTip(forwardButton, "Moves forward in console history");
-
+			toolTip.SetToolTip(consoleLabel, "Input : Transaction Histories - Output : Annualized ROR");
 		}
 
 		private void GetMostRecentAnnualizedData_Click(object sender, EventArgs e)

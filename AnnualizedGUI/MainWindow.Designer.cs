@@ -41,12 +41,11 @@ namespace AnnualizedGUI
             this.currentNumShares_TextBox = new System.Windows.Forms.TextBox();
             this.currentPriceLabel = new System.Windows.Forms.Label();
             this.currentPriceTextBox = new System.Windows.Forms.TextBox();
-            this.textBoxLabel = new System.Windows.Forms.Label();
             this.textBoxConsole = new System.Windows.Forms.TextBox();
             this.UpdateAndGetAnnualizedButton = new System.Windows.Forms.Button();
             this.clearTextBoxButton = new System.Windows.Forms.Button();
             this.clearFieldsButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.consoleLabel = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
             this.forwardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -139,17 +138,6 @@ namespace AnnualizedGUI
             this.currentPriceTextBox.Size = new System.Drawing.Size(148, 20);
             this.currentPriceTextBox.TabIndex = 5;
             // 
-            // textBoxLabel
-            // 
-            this.textBoxLabel.AutoSize = true;
-            this.textBoxLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxLabel.Location = new System.Drawing.Point(662, 257);
-            this.textBoxLabel.Name = "textBoxLabel";
-            this.textBoxLabel.Size = new System.Drawing.Size(330, 18);
-            this.textBoxLabel.TabIndex = 2;
-            this.textBoxLabel.Text = "Input : Transaction Histories - Output : Annualized ROR";
-            // 
             // textBoxConsole
             // 
             this.textBoxConsole.AcceptsReturn = true;
@@ -201,16 +189,16 @@ namespace AnnualizedGUI
             this.clearFieldsButton.UseVisualStyleBackColor = true;
             this.clearFieldsButton.Click += new System.EventHandler(this.clearFieldsButton_Click);
             // 
-            // label1
+            // consoleLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(596, 253);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 22);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Console";
+            this.consoleLabel.AutoSize = true;
+            this.consoleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.consoleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.consoleLabel.Location = new System.Drawing.Point(830, 243);
+            this.consoleLabel.Name = "consoleLabel";
+            this.consoleLabel.Size = new System.Drawing.Size(163, 22);
+            this.consoleLabel.TabIndex = 14;
+            this.consoleLabel.Text = "Input/Output Console";
             // 
             // backButton
             // 
@@ -240,10 +228,9 @@ namespace AnnualizedGUI
             this.ClientSize = new System.Drawing.Size(1027, 683);
             this.Controls.Add(this.forwardButton);
             this.Controls.Add(this.backButton);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.consoleLabel);
             this.Controls.Add(this.clearFieldsButton);
             this.Controls.Add(this.fundNameTextBox);
-            this.Controls.Add(this.textBoxLabel);
             this.Controls.Add(this.getMostRecentButton);
             this.Controls.Add(this.clearTextBoxButton);
             this.Controls.Add(this.UpdateAndGetAnnualizedButton);
@@ -275,10 +262,9 @@ namespace AnnualizedGUI
 		private System.Windows.Forms.Button UpdateAndGetAnnualizedButton;
 		private System.Windows.Forms.Button clearTextBoxButton;
 		private System.Windows.Forms.Button getMostRecentButton;
-        private System.Windows.Forms.Label textBoxLabel;
         private System.Windows.Forms.ComboBox fundNameTextBox;
         private Button clearFieldsButton;
-        private Label label1;
+        private Label consoleLabel;
         private Button backButton;
         private Button forwardButton;
     }
