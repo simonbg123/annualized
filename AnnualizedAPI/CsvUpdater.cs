@@ -116,6 +116,8 @@ namespace AnnualizeAPI
                     errorLog.WriteLine(DateTime.Now + "\n" + csvFilePath + "\n" +
                         ex.Message + newLine + ex.StackTrace + "\n\n");
                 }
+
+                return false;
             }
             
             return true;
