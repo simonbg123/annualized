@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace AnnualizeAPI
+namespace AnnualizeLibrary
 {     
    /**
    * This class is used to update or create a CSV file for use by the 

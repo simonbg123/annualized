@@ -81,9 +81,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AnnualizedAPI\AnnualizedAPI.csproj">
+    <ProjectReference Include="..\AnnualizedLibrary\AnnualizedLibrary.csproj">
       <Project>{4bbd0566-aff6-43b1-9ee3-4404a4f101df}</Project>
-      <Name>AnnualizedAPI</Name>
+      <Name>AnnualizedLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

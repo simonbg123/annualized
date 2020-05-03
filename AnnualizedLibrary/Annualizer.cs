@@ -56,7 +56,7 @@ using System.Text.RegularExpressions;
  * histories coming from the BMO website.
  */
 
-namespace AnnualizeAPI
+namespace AnnualizeLibrary
 {
 
 	public class Annualizer
