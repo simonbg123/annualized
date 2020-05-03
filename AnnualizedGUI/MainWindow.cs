@@ -139,7 +139,7 @@ namespace AnnualizedGUI
 			{
 				errorFlags |= InputErrors.FundNameNotEntered;
 			}
-			if (!IsPeriodsFormatValid(currentNumShares_TextBox.Text))
+			if (!IsPeriodsFormatValid(periods_textBox.Text))
 			{
 				errorFlags |= InputErrors.PeriodsFormat;
 			}
