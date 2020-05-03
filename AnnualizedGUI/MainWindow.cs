@@ -35,6 +35,7 @@ namespace AnnualizedGUI
 		public MainWindow()
 		{
 			InitializeComponent();
+			Directory.CreateDirectory(CsvUpdater.dataDirectory);
 			fundNameTextBox.Items.AddRange(GetSavedFundNames());
 			backHistoryStack = new Stack<string>();
 			forwardHistoryStack = new Stack<string>();
@@ -113,7 +114,7 @@ namespace AnnualizedGUI
 			}
 			catch 
 			{
-				textBoxConsole.Text = "Couldn't calculate annualized rate for: " + csvFilePath.Substring(CsvUpdater.dataDirectory.Length);
+				textBoxConsole.Text = "Couldn't calculate annualized rate for: " + Path.GetFileName(csvFilePath);
 				textBoxConsole.AppendText(Environment.NewLine + Environment.NewLine);
 				textBoxConsole.AppendText("Check error logs");
 				//MessageBox.Show("Problem processing data", "Error",
@@ -195,7 +196,7 @@ namespace AnnualizedGUI
 				}
 				catch
 				{
-					textBoxConsole.Text = "Couldn't calculate annualized rate" + csvFilePath.Substring(CsvUpdater.dataDirectory.Length);
+					textBoxConsole.Text = "Couldn't calculate annualized rate" + Path.GetFileName(csvFilePath);
 					textBoxConsole.AppendText(Environment.NewLine + Environment.NewLine);
 					textBoxConsole.AppendText("Check error logs");
 				}
@@ -244,6 +245,7 @@ namespace AnnualizedGUI
 
 		private string[] GetSavedFundNames()
 		{
+			Directory.CreateDirectory(CsvUpdater.dataDirectory);
 			string[] files = Directory.GetFiles(CsvUpdater.dataDirectory, "*.csv");
 			for (int i = 0; i < files.Length; ++i)
 			{
@@ -252,12 +254,13 @@ namespace AnnualizedGUI
 			return files;
 		}
 
-		private string GetFundNameFromPath(string path)
+		private string GetFundNameFromPath(string filePath)
 		{
 			int extensionLength = 4; // .csv
-			int nameLength = path.Length - CsvUpdater.dataDirectory.Length - extensionLength;
-			path = path.Substring(CsvUpdater.dataDirectory.Length, nameLength);
-			return Regex.Replace(path, "_", " ");
+			string fileName = Path.GetFileName(filePath);
+			int nameLength = fileName.Length - extensionLength;
+			string fundName = fileName.Substring(0, nameLength);
+			return Regex.Replace(fundName, "_", " ");
 		}
 
 		private void UpdateFundNameList()

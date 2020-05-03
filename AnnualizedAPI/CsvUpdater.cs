@@ -28,12 +28,12 @@ namespace AnnualizeAPI
    {
       
         static string newLine = Environment.NewLine;
-        public static string dataDirectory = "data" + Path.DirectorySeparatorChar;
-        public static string backupDirectory = "backup" + Path.DirectorySeparatorChar;
+        public static string dataDirectory = "data";
+        public static string backupDirectory = "backup";
         public static string GetCsvFilePath(string fundName)
         {
             string space = "[ \t]+";
-            return dataDirectory + Regex.Replace(fundName, space, "_") + ".csv";
+            return Path.Combine(dataDirectory, Regex.Replace(fundName, space, "_") + ".csv");
         }
 
         public static bool BMO(
@@ -152,7 +152,9 @@ namespace AnnualizeAPI
 
         private static void MakeBackup(string csvFilePath)
         {
+            Directory.CreateDirectory(backupDirectory);
             string backupFilePath = GetBackupFilePath(csvFilePath);
+            
             if (File.Exists(backupFilePath))
             {
                 File.Delete(backupFilePath);
@@ -160,9 +162,9 @@ namespace AnnualizeAPI
             File.Copy(csvFilePath, backupFilePath);
         }
 
-        private static string GetBackupFilePath(string path)
+        private static string GetBackupFilePath(string filePath)
         {
-            return backupDirectory + path.Substring(dataDirectory.Length);
+            return Path.Combine(backupDirectory, Path.GetFileName(filePath));
         }
     }
 }
