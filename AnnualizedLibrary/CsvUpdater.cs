@@ -6,25 +6,20 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace AnnualizeLibrary
-{     
-   /**
-   * This class is used to update or create a CSV file for use by the 
-   * Annualize class, from a BufferedReader.
-   * <p>
-   * It currently contains one static method, {@link #BMO}, which can be 
-   * used to convert transaction
-   * histories from that institution into the required CSV format:
-   * <blockquote><pre>
-   *
-   *          <b>Year, Month, Day, transaction code, amount, number of shares, price</b>
-   *          <i>Transaction code is either a "p" for purchase,
-   *           a "s" for sale or a "r" for re-invested income.
-   *           Again, no number has commas or dollar sign.</i>
-   * </pre></blockquote>
-   * </p>
-   *
-   */
-   public class CsvUpdater
+{
+   
+   
+   
+   /// <summary>
+   /// This class is used to update or create a transaction history CSV file.
+   /// It currently contains one static method, <code>BMO</code>, which can be 
+   /// used to convert raw transaction histories from that institution into the required CSV format:
+   /// <para>
+   /// Year, Month, Day, transaction code, amount, number of shares, price
+   /// </para>
+   /// <para>More details on fields in Annualizer class documentation</para>
+   /// </summary>   
+    public class CsvUpdater
    {
       
         static string newLine = Environment.NewLine;
@@ -36,6 +31,18 @@ namespace AnnualizeLibrary
             return Path.Combine(dataDirectory, Regex.Replace(fundName, space, "_") + ".csv");
         }
 
+        /// <summary>
+        /// Converts the text of a BMO Fund transaction history obtained from the BMO website,
+        /// into a formatted.csv data file for use with the Annualizer class.
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="csvFilePath"></param>
+        /// <param name="currentPrice"></param>
+        /// <param name="currentNumShares"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
         public static bool BMO(
             TextReader lines, 
             string csvFilePath, 
@@ -65,11 +72,7 @@ namespace AnnualizeLibrary
                         br.ReadLine();
                         previousMostRecentEntry = br.ReadLine() + newLine;
                         oldCsvFileContents = br.ReadToEnd();
-                        //for (string line = previousMostRecentEntry = br.ReadLine(); line != null; line = br.ReadLine())
-                        //{
-                        //    if (string.IsNullOrEmpty(line)) continue;
-                        //    oldCsvFileContents.Append(line + newLine);
-                        //}                  
+                                       
                     }                
                 }
 

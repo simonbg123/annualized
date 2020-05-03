@@ -1,69 +1,54 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-//using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 
 
-// todo : convert javadoc to appropriate format
-// todo: make sure calculations can't be made if price properties
-// not initialized
-/**
- * Author: Simon Brillant-Giroux
- * <p>
- * The {@code Annualize} class is used in order to obtain
- * annualized rates of returns on investment, based on information 
- * contained in a a transaction history.
- * <p>
- * The methods {@link #printDefault} and {@link #printCustom}
- * are used to print out annualized rates of returns for any specified 
- * number of time periods in a practical, 
- * concise format,
- * whereas the {@link #calculateAnnualized} method can be used to return
- * a specific {@code double} value representing the annualized rate of return 
- * for a specific time period.
- * <p>
- * The information must be contained within a CSV file:
- * <blockquote><pre>
- *
-*   <b>Year, Month, Day, transaction code, amount, number of shares, price</b>
-*   <i>Transaction code is either a "p" for purchase,
-*    a "s" for sale or a "r" for re-invested income.
-*    Again, no number has commas or dollar sign.</i>
- * </pre></blockquote>
- * For example:
- * <blockquote><pre>
- * 		2018	8	17	s	1600.00	137.1554	11.67
- *		2018	7	3	p	1000.00	85.9749	11.63
- *		2018	6	27	r	5.77	0.4926	11.71
- *		2018	6	4	p	1000.00	86.0363	11.62
- *		2018	3	27	r	1.68	0.1466	11.46
- *		2018	1	29	p	1000.00	85.9358	11.64
- *		2018	1	3	p	500.00	43.0845	11.61
- *		2017	12	28	r	32.73	2.8248	11.59
- *		2017	12	4	p	1000.00	85.6949	11.67
- *		2017	11	20	p	500.00	42.9723	11.64
- *		2017	10	3	p	500.00	43.9808	11.37
- *		2017	7	6	p	1000.00	88.1337	11.35
- * </pre></blockquote>
- * <p>
- *
- * FTe {@code #CsvUpdater} class is used to convert
- * a text file or string containingtransaction histories into
- * a properly formatted CSV file for the purpose of using this class.
- * Currently, the {@code CsvUpdater.BMO()} method can be used to process
- * histories coming from the BMO website.
- */
-
 namespace AnnualizeLibrary
 {
-
+	/// <summary>
+	/// <para>Author: Simon Brillant-Giroux</para>
+	/// <para>The Annualizer class is used in order to obtain
+	/// annualized rates of returns on investment, based on a transaction
+	/// history contained in a .csv file created with the CsvUpdater class.
+	/// <para>The methods <code>PrintDefault</code> and <code>PrintCustom</code>
+	/// are used to print out to a specified TextWriter or to the console, 
+	/// annualized rates of returns for the default time periods or 
+	/// for one or more specified number of time periods. The <code>GetDefault</code> and
+	/// <code>GetCustom</code> canbe used to obtain a string representation of the same 
+	/// information. The information is presented in a formatted, practical format.
+	/// </para>
+	/// 
+	/// <para>The information contained in the .csv fileas the following way:</para>
+	/// <para>At the beginning of the file is written information about the current state of the fund
+	/// at the time of the last file update. This is used to obtain annualized rates of returns based
+	/// on the most recent information available. The format is the followingL</para>
+	/// <para>Current_Share_Price    Current_Number_of_Shares    Current_Year    Current_Month    Current_Day
+	/// </para>
+	/// <para>Then, for the transaction histories, the format is the following:</para>
+	/// <para>Year, Month, Day, transaction code, amount, number of shares, price</para>
+	/// <para>Transaction codes are: p: purchase, s: sale, r: re-invested income, tf: transferred from other fund</para>
+	/// <para>For example:</para>
+	/// <para />2019	3	 18	r	2.06	0.1539	13.39
+	/// <para />2019	2	 19	r	1.73	0.1309	13.22
+	/// <para />2019	1	 16	r	1.33	0.1018	13.07
+	/// <para />2018	12	 18	r	1.33	0.1020	13.04
+	/// <para />2018	12	 17	s	1868.00	143.2175	13.04
+	/// <para />2018	11	 16	r	3.83	0.2964	12.92
+	/// <para />2018	10	 16	r	11.59	0.9028	12.84
+	/// <para />2018	9	 17	r	8.40	0.6469	12.98
+	/// <para />2018	8	 17	s	4000.00	306.3233	13.06
+	/// <para />2018	8	 16	r	11.27	0.8627	13.06
+	/// <para />2018	7	 16	r	3.56	0.2709	13.14
+	/// <para />2018	6	 18	r	5.12	0.3902	13.12
+	/// 
+	/// 
+	/// </summary>
 	public class Annualizer
 	{
 		readonly string newLine = Environment.NewLine;
-		//private static readonly string format = "0.00";
-
+		
 		private int daysCounted;
 		private double annualizedROR;
 		private StringBuilder bufferedOutput = new StringBuilder();
@@ -73,7 +58,9 @@ namespace AnnualizeLibrary
 		public DateTime StartDate { get; set; }
 		public DateTime FinalDate { get; set; }
 
-
+		/// <summary>
+		/// 
+		/// </summary>
 		public void ResetFundFields()
 		{
 			FundName = null;
@@ -85,70 +72,58 @@ namespace AnnualizeLibrary
 			PresentNumberOfShares = 0;
 			PresentPrice = 0;
 		}
+		
 
-
-
-		/** This method performs the calculations producing annualized rates 
-		 * of return for single time period units.
-		 * It is called by the {@code #printCustom(String, int...)} method for 
-		 * each time period for which an annualized ROR is needed.
-		 * It populates the fields of the {@code Annualize} object 
-		 * (supplied as an argument) to the
-		 * calling method so it can use those values.
-		 * <p>
-		 * The basic formula used is to perform the calculations is the following:
-		 * <blockquote><pre>
-		 * 		profits(losses) / capital   *   365 / number of days
-		 * 	</pre></blockquote>
-		 * When a change in capital occurs (sale or purchase of shares, except shares
-		 * that are automatically purchased as part of a re-investment of income - more on that later)
-		 * , we need to separate our calculation in two blocks: before and 
-		 * after the transaction and this for as many transactions that occur. 
-		 * Each block is evaluated for a specific amount of
-		 * capital. Partial RORs are obtained with the following formula:
-		 * <blockquote><pre>
-		 * 		profits(losses) / capital
-		 * 	</pre></blockquote>
-		 * At the end, we add up all those partial RORs and apply our basic formula as such:
-		 * <blockquote><pre>
-		 * 		sum of partial RORs   *   365 / total number of days
-		 * </pre></blockquote>
-		 * <p>
-		 * The CSV file goes in anti-chronological order, going from the 
-		 * most recent transactions to the oldest ones.
-		 * <p>
-		 * Re-invested profits are counted as profits, not as new purchase of share.
-		 * The reason is to give an idea of the wealth that is generated by a fund, in value
-		 * or income, over time. This approach would not make sense to an investor 
-		 * who do not re-invest the income.
-		 * A discrepancy would be introduced as the returns would necessarily be reduced
-		 * by the constant withdrawing of income.
-		 * <p>
-		 * The way the re-invested shares are counted as profit is that, 
-		 * when a profit calculation is triggered
-		 * by a change in capital or because a day-limit has been reached,
-		 * it is performed by deducting the fund value of the beginning of a 
-		 * period from the value at the end of
-		 * the period. However, the number of shares that were re-invested 
-		 * during the target period is subtracted from the beginning value of 
-		 * the period. For example, if we started the period with
-		 * 10,000 shares at a price of $10.00 and 532.675 were re-invested 
-		 * during the period, when the period ends and the price is $10.08, 
-		 * the profit is calculated in the following way:
-		 * <blockquote><pre>
-		 * 		10,532.675*10.08 - 10,000*10.00
-		 * </pre></blockquote>
-		 * Now, suppose that the calculation was triggered because 1000 shares 
-		 * were purchased, then the total amount of shares will be adjusted for 
-		 * the period following the calculation and the beginning
-		 * value will 11,532.675*10.08 from the next period. Remember, 
-		 * however, that these events occur in reverse
-		 * in terms of the computations done in this method, because of the order 
-		 * in which transactions are input in the CSV file.
-		 *
-		 */
-		// returns true when reached end of file before having reached the period we want.
-		// TODO : make sure a new stream is used for each call!!!
+		/// <summary>
+		/// This method performs the calculations producing annualized rates
+		/// of return for single time period units. 
+		/// It is called by the <code>PrintCustom</code> method for 
+		/// each time period specified.
+		/// It populates the fields of the <code>Annualizer</code> object.
+		/// <para>
+		/// The basic formula used is to perform the calculations is the following:
+		/// </para>
+		/// <para>appreciation(depreciation) / capital   *   365 / number of days</para>
+		/// <para>
+		/// When a change in capital occurs (sale or purchase of shares, except shares 
+		/// that are automatically purchased as part of a re-investment of income - more on that later) 
+		/// we need to separate our calculation in two blocks: before and 
+		/// after the transaction and this for as many transactions that occur. 
+		/// Each block is evaluated for a specific amount of capital.Partial RORs are obtained with the following formula:
+		/// </para>
+		/// <para>appreciation(depreciation) / capital</para>
+		/// <para>At the end, we add up all those partial RORs and apply our basic formula as such:</para>
+		/// <para>sum of partial RORs   *   365 / total number of days</para>
+		/// <para>The CSV file goes in anti-chronological order, going from the 
+		/// most recent transactions to the oldest ones.
+		/// Re-invested profits are counted as appreciation, not as new purchases of share.
+		/// The reason is to give an idea of the wealth that is generated by a fund, in value 
+		/// or income, over time.This approach would not make sense to an investor 
+		/// who do not re-invest the income. 
+		/// A discrepancy would be introduced as the returns would necessarily be reduced 
+		/// by the constant withdrawing of income.</para>
+		/// <para>The way the re-invested shares are counted as profit is that, 
+		/// when a profit calculation is triggered 
+		/// by a change in capital or because a day-limit has been reached, 
+		/// it is performed by deducting the fund value of the beginning of a 
+		/// period from the value at the end of the period.However, the number of shares 
+		/// that were re-invested 
+		/// during the target period is subtracted from the beginning value of the period.For example, if we started the period with 
+		/// 10,000 shares at a price of $10.00 and 532.675 were re-invested 
+		/// during the period, when the period ends and the price is $10.08, 
+		/// the profit is calculated in the following way:</para>
+		/// <para>10,532.675*10.08 - 10,000*10.00</para>
+		/// <para>Now, suppose that the calculation was triggered because 1000 shares 
+		/// were purchased, then the total amount of shares will be adjusted for 
+		/// the period following the calculation and the beginning 
+		/// value will 11,532.675*10.08 from the next period.Remember, 
+		/// however, that these events occur in reverse 
+		/// in terms of the computations done in this method, because of the order 
+		/// in which transactions are input in the CSV file.</para>
+		/// </summary>
+		/// <param name="csvInput">the path to the .csv transaction history file</param>
+		/// <param name="limit">the limit for the current calculation, in days</param>
+		/// <returns>true when reached end of file before having reached the target limit</returns>
 		private bool CalculateAnnualized(string csvInput, int limit)
 		{
 
@@ -248,9 +223,11 @@ namespace AnnualizeLibrary
 			else return false;
 		}
 
-		/*
-		* Helper method which coordinates calculations and output formatting for a series of time periods.
-		*/
+		/// <summary>
+		/// Helper method which coordinates calculations and output formatting for a series of time periods.
+		/// </summary>
+		/// <param name="csvInput"></param>
+		/// <param name="limit"></param>
 		private void CalculateAndFormat(string csvInput, params int[] limit)
 		{
 			DateTimeFormatInfo dateTimeFormat = CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat;
@@ -276,51 +253,44 @@ namespace AnnualizeLibrary
 			}
 		}
 
-	/**
-	 * Outputs to standard output a specified assortment of rates of return for the
-	 * supplied CSV file.
-	 * @param csvInput the CSV file containing the transaction histories
-	 * @param limit the time limits for which a calculation is requested
-	 * @throws IOException
-	 */
+	/// <summary>
+	/// Outputs to standard output a specified assortment of rates of return for the supplied CSV file.
+	/// </summary>
+	/// <param name="csvInput">the path to te </param>
+	/// <param name="limits">the lengths of the periods in days for which a calculation is requested</param>
 	public void PrintCustom(string csvInput, params int[] limits)
 	{
 		PrintCustom(csvInput, Console.Out, limits);
-			
-	}
 
-	/**
-	* Outputs to standard output a specified assortment of rates of return for the
-	* supplied CSV file.
-	* @param csvInput the CSV file containing the transaction histories
-	* @param limit the time limits for which a calculation is requested
-	* @param output the PrintWriter object representing our output stream
-	* @throws IOException
-	*/
-	public void PrintCustom(string csvInput, TextWriter output, params int[] limits)
+		}
+
+	/// <summary>
+	/// Outputs to a specified TextWriter a specified assortment of rates of return for the supplied CSV file.
+	/// </summary>
+	/// <param name="csvInput"></param>
+	/// <param name="output"></param>
+	/// <param name="limits"></param>
+		public void PrintCustom(string csvInput, TextWriter output, params int[] limits)
 	{
 		CalculateAndFormat(csvInput, limits);
 		output.WriteLine(bufferedOutput);
-	}
+		}
 
-	/**
-	* Outputs to standard output a default assortment of rates of return for the
-	* supplied CSV file.
-	* @param csvInput the CSV file containing the transaction histories
-	* @throws IOException
-	*/
-	public void PrintDefault(string csvInput)
+
+		/// <summary>
+		/// Prints to standard output the rates of return for the default periods.
+		/// </summary>
+		/// <param name="csvInput"> path to the supplied .csv file</param>
+		public void PrintDefault(string csvInput)
 	{
 		PrintDefault(csvInput, Console.Out);
 	}
 	
-	/**
-	* Outputs to a specified file a default assortment of rates of return for the
-	* supplied CSV file.
-	* @param csvInput the CSV file containing the transaction histories
-	* @param output the PrintWriter object representing our output stream
-	* @throws IOException
-	*/
+	/// <summary>
+	/// Prints to a specified TextWriter annualized rates of return for the default periods.
+	/// </summary>
+	/// <param name="csvInput"></param>
+	/// <param name="output">path to the supplied .csv file</param>
 	public void PrintDefault(string csvInput, TextWriter output)
 	{
 		PrintCustom(csvInput, output, 60, 180, 365, 100000);
@@ -334,12 +304,13 @@ namespace AnnualizeLibrary
 	public string getDefault(string csvInput)
 	{
 		return getCustom(csvInput, 60, 180, 365, 100000);
-	}
-	/*
-	 * Formats our final output string to a legible statement
-	 * of annualized rates of return.
-	 */
-	private void FormatOutput()
+		}
+	
+	/// <summary>
+	/// Formats our final output string to a legible statement 
+	/// of annualized rates of return.
+	/// </summary>
+		private void FormatOutput()
 	{
 		DateTimeFormatInfo dateTimeFormat = CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat;
 		dateTimeFormat.ShortDatePattern = "MMM. dd, yyyy";
