@@ -47,6 +47,7 @@ namespace AnnualizeLibrary
 	/// </summary>
 	public class Annualizer
 	{
+		public static readonly int[] defaultPeriods = { 30, 60, 180, 365, 1000000 };
 		readonly string newLine = Environment.NewLine;
 		
 		private int daysCounted;
@@ -293,7 +294,7 @@ namespace AnnualizeLibrary
 	/// <param name="output">path to the supplied .csv file</param>
 	public void PrintDefault(string csvInput, TextWriter output)
 	{
-		PrintCustom(csvInput, output, 60, 180, 365, 100000);
+		PrintCustom(csvInput, output, defaultPeriods);
 	}
 
 	public string getCustom(string csvInput, params int[] limits)
@@ -303,7 +304,7 @@ namespace AnnualizeLibrary
 	}
 	public string getDefault(string csvInput)
 	{
-		return getCustom(csvInput, 60, 180, 365, 100000);
+		return getCustom(csvInput, defaultPeriods);
 		}
 	
 	/// <summary>
