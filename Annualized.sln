@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnnualizedGUI", "Annualized
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnnualizedLibrary", "AnnualizedLibrary\AnnualizedLibrary.csproj", "{4BBD0566-AFF6-43B1-9EE3-4404A4F101DF}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{53F1BDF8-26B9-4A73-8B1B-E060A7518A5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{4BBD0566-AFF6-43B1-9EE3-4404A4F101DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BBD0566-AFF6-43B1-9EE3-4404A4F101DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BBD0566-AFF6-43B1-9EE3-4404A4F101DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F1BDF8-26B9-4A73-8B1B-E060A7518A5E}.Debug|Any CPU.ActiveCfg = Debug
+		{53F1BDF8-26B9-4A73-8B1B-E060A7518A5E}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
