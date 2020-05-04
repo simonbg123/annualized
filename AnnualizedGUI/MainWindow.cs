@@ -45,9 +45,6 @@ namespace AnnualizedGUI
 		{
 			ToolTip toolTip = new ToolTip();
 
-			//toolTip.AutoPopDelay = 5000;
-			//toolTip.InitialDelay = 1000;
-			//toolTip.ReshowDelay = 500;
 			toolTip.ShowAlways = true;
 			toolTip.AutoPopDelay = 10000;
 
@@ -205,7 +202,7 @@ namespace AnnualizedGUI
 			}
 			else
 			{
-				textBoxConsole.Text = "Couldn't update data file: " + csvFilePath + 
+				textBoxConsole.Text = "Couldn't create/update data file: " + csvFilePath + 
 					Environment.NewLine + Environment.NewLine +
 					"\n\nCheck error logs";
 
