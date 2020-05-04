@@ -9,24 +9,24 @@ Its purpose is to remedy the lack of information provided in such transaction hi
 
 Any number of periods can be specified. For example, specifying periods of respectively 30, 60, 180, 365 and maximum days, a sample output would be:
 
-*My Super Fund ABC*
+    My Super Fund ABC
 
-*Annualized rates as of May. 02, 2020*
+    Annualized rates as of May. 02, 2020
 
-*47-day period: 3.95%*
-*starting Mar. 16, 2020*
+    47-day period: 3.95%
+    starting Mar. 16, 2020
 
-*74-day period: 6.57%*
-*starting Feb. 18, 2020*
+    74-day period: 6.57%
+    starting Feb. 18, 2020
 
-*199-day period: 4.63%*
-*starting Oct. 16, 2019*
+    199-day period: 4.63%
+    starting Oct. 16, 2019
 
-*382-day period: 2.90%*
-*starting Apr. 16, 2019*
+    382-day period: 2.90%
+    starting Apr. 16, 2019
 
-*Maximum 1419-day period: 0.76%*
-*starting Jun. 13, 2016*
+    Maximum 1419-day period: 0.76%
+    starting Jun. 13, 2016
 
 
 **Annualized rate of return** is meant to include capital appreciation as well as automatic profit redistribution through share purchasing, thus offering a realistic view of total capital appreciation for a given fund.
@@ -40,7 +40,7 @@ Any number of periods can be specified. For example, specifying periods of respe
 
 An easy-to-use GUI is available to conduct a number of operations.
 
-Most of the functionality is provided by two butons:
+Most of the functionality is provided by two buttons:
 
 - **Update and get Annualized!** : update or create records for a fund, and obtain annualized data. Must be supplied: the fund name (new or chosen from drop-down list), the period(s) for which annualized data is requested (leave blank for default values), the current price share, the current number of shares. A current transaction history needs to be copied as well to the input/output console at the bottom of the window. If new records were created, the fund's name will be added to the list of available funds.
 
