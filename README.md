@@ -54,11 +54,11 @@ Other buttons allow convenient clearing of the console or the textbox fields.
 
 ## Design Notes
 
-Transaction histories for specific investments are parsed to a specific, uniform CSV format, and stored in .csv files, which can be updated with recent histories. Funds that have such files can thus be queried or updated.
+Transaction histories for specific investments are parsed to a specific, uniform TSV format, and stored in .tsv files, which can be updated with recent histories. Funds that have such files can thus be queried or updated.
 
 The code is organized in two projects: 
 - AnnualizedGUI: contains the user interface
-- AnnualizedLibrary: contains the CsvUpdater class in charge of creating, updating and backing up CSV records, and the Annualizer class, which reads the CSV files to calculate specific annualized rates of return, and returns or prints to a stream the formatted results.
+- AnnualizedLibrary: contains the TsvUpdater class in charge of creating, updating and backing up TSV records, and the Annualizer class, which reads the TSV files to calculate specific annualized rates of return, and returns or prints to a stream the formatted results.
 
 There is also a Setup project to provide an installer.
 

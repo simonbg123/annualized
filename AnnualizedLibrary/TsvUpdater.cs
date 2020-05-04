@@ -11,32 +11,32 @@ namespace AnnualizeLibrary
    
    
    /// <summary>
-   /// This class is used to update or create a transaction history CSV file.
+   /// This class is used to update or create a transaction history TSV file.
    /// It currently contains one static method, <code>BMO</code>, which can be 
-   /// used to convert raw transaction histories from that institution into the required CSV format:
+   /// used to convert raw transaction histories from that institution into the required TSV format:
    /// <para>
    /// Year, Month, Day, transaction code, amount, number of shares, price
    /// </para>
    /// <para>More details on fields in Annualizer class documentation</para>
    /// </summary>   
-    public class CsvUpdater
+    public class TsvUpdater
    {
       
         static string newLine = Environment.NewLine;
         public static string dataDirectory = "data";
         public static string backupDirectory = "backup";
-        public static string GetCsvFilePath(string fundName)
+        public static string GetTsvFilePath(string fundName)
         {
             string space = "[ \t]+";
-            return Path.Combine(dataDirectory, Regex.Replace(fundName, space, "_") + ".csv");
+            return Path.Combine(dataDirectory, Regex.Replace(fundName, space, "_") + ".tsv");
         }
 
         /// <summary>
         /// Converts the text of a BMO Fund transaction history obtained from the BMO website,
-        /// into a formatted.csv data file for use with the Annualizer class.
+        /// into a formatted .tsv data file for use with the Annualizer class.
         /// </summary>
         /// <param name="lines"></param>
-        /// <param name="csvFilePath"></param>
+        /// <param name="tsvFilePath"></param>
         /// <param name="currentPrice"></param>
         /// <param name="currentNumShares"></param>
         /// <param name="year"></param>
@@ -45,7 +45,7 @@ namespace AnnualizeLibrary
         /// <returns></returns>
         public static bool BMO(
             TextReader lines, 
-            string csvFilePath, 
+            string tsvFilePath, 
             double currentPrice, 
             double currentNumShares,
             int year,
@@ -55,23 +55,23 @@ namespace AnnualizeLibrary
             
             try
             {
-                // find what the last line is in the existing csv file, starts at 1
+                // find what the last line is in the existing tsv file, starts at 1
                 string previousMostRecentEntry = "";
-                string oldCsvFileContents = null;
-                bool csvFileAlreadyExisted = File.Exists(csvFilePath);
+                string oldTsvFileContents = null;
+                bool tsvFileAlreadyExisted = File.Exists(tsvFilePath);
 
-                if (csvFileAlreadyExisted)
+                if (tsvFileAlreadyExisted)
                 {
-                    MakeBackup(csvFilePath);
+                    MakeBackup(tsvFilePath);
 
-                    using (StreamReader br = new StreamReader(csvFilePath))
+                    using (StreamReader br = new StreamReader(tsvFilePath))
                     {
                         br.ReadLine();
                         br.ReadLine();
                         br.ReadLine();
                         br.ReadLine();
                         previousMostRecentEntry = br.ReadLine() + newLine;
-                        oldCsvFileContents = br.ReadToEnd();
+                        oldTsvFileContents = br.ReadToEnd();
                                        
                     }                
                 }
@@ -79,24 +79,24 @@ namespace AnnualizeLibrary
                 DateTimeFormatInfo dateTimeFormat = CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat;
                 dateTimeFormat.ShortDatePattern = "MMM. dd, yyyy";
 
-                StringBuilder csvBuilder = new StringBuilder();
+                StringBuilder tsvBuilder = new StringBuilder();
             
                 for (String line = lines.ReadLine(); line != null; line = lines.ReadLine())
                 {
                     // the last empty line after the last '\n'
                     if (line == "") continue;
                   
-                    string csvEntry = makeCsvEntry(dateTimeFormat, line);
-                    csvBuilder.Append(csvEntry);
+                    string tsvEntry = makeTsvEntry(dateTimeFormat, line);
+                    tsvBuilder.Append(tsvEntry);
                 
-                    if (previousMostRecentEntry.Equals(csvEntry))
+                    if (previousMostRecentEntry.Equals(tsvEntry))
                     {
                         break;
                     }                
                 }
 
-                // Append our StringBuilder to the CSV file, or create a new one
-                using (StreamWriter sw = new StreamWriter(csvFilePath))
+                // Append our StringBuilder to the TSV file, or create a new one
+                using (StreamWriter sw = new StreamWriter(tsvFilePath))
                 {
                     // first legend
                     sw.WriteLine("Current_Share_Price    Current_Number_of_Shares    Current_Year    Current_Month    Current_Day");
@@ -107,16 +107,16 @@ namespace AnnualizeLibrary
                         + newLine 
                         + "(p: purchase, s: sale, r: re-invested income, tf: transferred from other fund)");
                
-                    sw.Write(csvBuilder);
-                    if (csvFileAlreadyExisted) 
-                        sw.Write(oldCsvFileContents);
+                    sw.Write(tsvBuilder);
+                    if (tsvFileAlreadyExisted) 
+                        sw.Write(oldTsvFileContents);
                 }
             }
             catch(Exception ex)
             {
                 using (StreamWriter errorLog = new StreamWriter("errorLog.txt", true))
                 {
-                    errorLog.WriteLine(DateTime.Now + "\n" + csvFilePath + "\n" +
+                    errorLog.WriteLine(DateTime.Now + "\n" + tsvFilePath + "\n" +
                         ex.Message + newLine + ex.StackTrace + "\n\n");
                 }
 
@@ -126,7 +126,7 @@ namespace AnnualizeLibrary
             return true;
         }
 
-        private static string makeCsvEntry(DateTimeFormatInfo dateTimeFormat, string line)
+        private static string makeTsvEntry(DateTimeFormatInfo dateTimeFormat, string line)
         {
             StringBuilder entryBuilder = new StringBuilder();
             DateTime date = DateTime.Parse(line.Substring(0, 13), dateTimeFormat);
@@ -153,16 +153,16 @@ namespace AnnualizeLibrary
             return entryBuilder.ToString();
         }
 
-        private static void MakeBackup(string csvFilePath)
+        private static void MakeBackup(string tsvFilePath)
         {
             Directory.CreateDirectory(backupDirectory);
-            string backupFilePath = GetBackupFilePath(csvFilePath);
+            string backupFilePath = GetBackupFilePath(tsvFilePath);
             
             if (File.Exists(backupFilePath))
             {
                 File.Delete(backupFilePath);
             }
-            File.Copy(csvFilePath, backupFilePath);
+            File.Copy(tsvFilePath, backupFilePath);
         }
 
         private static string GetBackupFilePath(string filePath)

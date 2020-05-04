@@ -35,7 +35,7 @@ namespace AnnualizedGUI
 		public MainWindow()
 		{
 			InitializeComponent();
-			Directory.CreateDirectory(CsvUpdater.dataDirectory);
+			Directory.CreateDirectory(TsvUpdater.dataDirectory);
 			fundNameTextBox.Items.AddRange(GetSavedFundNames());
 			backHistoryStack = new Stack<string>();
 			forwardHistoryStack = new Stack<string>();
@@ -90,9 +90,9 @@ namespace AnnualizedGUI
 			annualizer.FundName = fundNameTextBox.Text.Trim();
 			
 			int[] periods = GetPeriods();
-			string csvFilePath = CsvUpdater.GetCsvFilePath(annualizer.FundName);
+			string tsvFilePath = TsvUpdater.GetTsvFilePath(annualizer.FundName);
 
-			using (StreamReader reader = new StreamReader(csvFilePath))
+			using (StreamReader reader = new StreamReader(tsvFilePath))
 			{
 				reader.ReadLine();       // first field names
 				string presentData = reader.ReadLine();				
@@ -107,11 +107,11 @@ namespace AnnualizedGUI
 
 			try
 			{
-				textBoxConsole.Text = annualizer.getCustom(csvFilePath, periods);
+				textBoxConsole.Text = annualizer.getCustom(tsvFilePath, periods);
 			}
 			catch 
 			{
-				textBoxConsole.Text = "Couldn't calculate annualized rate for: " + Path.GetFileName(csvFilePath);
+				textBoxConsole.Text = "Couldn't calculate annualized rate for: " + Path.GetFileName(tsvFilePath);
 				textBoxConsole.AppendText(Environment.NewLine + Environment.NewLine);
 				textBoxConsole.AppendText("Check error logs");
 				//MessageBox.Show("Problem processing data", "Error",
@@ -174,13 +174,13 @@ namespace AnnualizedGUI
 			
 			int[] periods = GetPeriods();
 
-			string csvFilePath = CsvUpdater.GetCsvFilePath(annualizer.FundName);
+			string tsvFilePath = TsvUpdater.GetTsvFilePath(annualizer.FundName);
 			
 			var sr = new StringReader(textBoxConsole.Text);
 
-			if (CsvUpdater.BMO(
+			if (TsvUpdater.BMO(
 				sr, 
-				csvFilePath, 
+				tsvFilePath, 
 				annualizer.PresentPrice, 
 				annualizer.PresentNumberOfShares,
 				now.Year,
@@ -189,11 +189,11 @@ namespace AnnualizedGUI
 			{
 				try
 				{
-					textBoxConsole.Text = annualizer.getCustom(csvFilePath, periods);
+					textBoxConsole.Text = annualizer.getCustom(tsvFilePath, periods);
 				}
 				catch
 				{
-					textBoxConsole.Text = "Couldn't calculate annualized rate" + Path.GetFileName(csvFilePath);
+					textBoxConsole.Text = "Couldn't calculate annualized rate" + Path.GetFileName(tsvFilePath);
 					textBoxConsole.AppendText(Environment.NewLine + Environment.NewLine);
 					textBoxConsole.AppendText("Check error logs");
 				}
@@ -202,7 +202,7 @@ namespace AnnualizedGUI
 			}
 			else
 			{
-				textBoxConsole.Text = "Couldn't create/update data file: " + csvFilePath + 
+				textBoxConsole.Text = "Couldn't create/update data file: " + tsvFilePath + 
 					Environment.NewLine + Environment.NewLine +
 					"\n\nCheck error logs";
 
@@ -242,8 +242,8 @@ namespace AnnualizedGUI
 
 		private string[] GetSavedFundNames()
 		{
-			Directory.CreateDirectory(CsvUpdater.dataDirectory);
-			string[] files = Directory.GetFiles(CsvUpdater.dataDirectory, "*.csv");
+			Directory.CreateDirectory(TsvUpdater.dataDirectory);
+			string[] files = Directory.GetFiles(TsvUpdater.dataDirectory, "*.tsv");
 			for (int i = 0; i < files.Length; ++i)
 			{
 				files[i] = GetFundNameFromPath(files[i]);
@@ -253,7 +253,7 @@ namespace AnnualizedGUI
 
 		private string GetFundNameFromPath(string filePath)
 		{
-			int extensionLength = 4; // .csv
+			int extensionLength = 4; // .tsv
 			string fileName = Path.GetFileName(filePath);
 			int nameLength = fileName.Length - extensionLength;
 			string fundName = fileName.Substring(0, nameLength);
