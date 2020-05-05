@@ -69,14 +69,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F1B509B0C780C7E90EFF8993493D31B2"
-        "OwnerKey" = "8:_3702966432304A95B990625F89D182F7"
+        "MsmKey" = "8:_EDAB25A2F42D4091AA22CB29D948876A"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_41669E1019012D36A0A38240C3D50C1D"
+        "MsmKey" = "8:_F1B509B0C780C7E90EFF8993493D31B2"
+        "OwnerKey" = "8:_3702966432304A95B990625F89D182F7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -115,6 +115,12 @@
         "OwnerKey" = "8:_4981ED472599B6CF3AF7D39E975379BB"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_41669E1019012D36A0A38240C3D50C1D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -133,6 +139,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -149,6 +171,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -364,6 +402,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EDAB25A2F42D4091AA22CB29D948876A"
+            {
+            "SourcePath" = "8:..\\annualized.ico"
+            "TargetName" = "8:annualized.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_99569E373469417CB6B72F1C898464F1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F1B509B0C780C7E90EFF8993493D31B2"
             {
             "AssemblyRegister" = "3:1"
@@ -452,15 +510,15 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Annualized"
         "ProductCode" = "8:{F2FAF9CE-D196-4EF1-B02E-4E49F0B53568}"
-        "PackageCode" = "8:{FF522847-D043-41FA-80E9-33C36797D18F}"
+        "PackageCode" = "8:{0F2AEA19-8D75-4FDA-8D03-80B3A5EA8A66}"
         "UpgradeCode" = "8:{B728C1CC-0B98-40DC-A1CD-27204276AA4A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:SimonBG"
+        "Manufacturer" = "8:Simon Brillant-Giroux"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Setup"
@@ -583,7 +641,7 @@
             "Target" = "8:_3702966432304A95B990625F89D182F7"
             "Folder" = "8:_84037E7765A8440DA8B5339893679EF9"
             "WorkingFolder" = "8:_99569E373469417CB6B72F1C898464F1"
-            "Icon" = "8:"
+            "Icon" = "8:_EDAB25A2F42D4091AA22CB29D948876A"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CD9E90DE3CD347F49FB84DEE9CCD47EC"
@@ -597,7 +655,7 @@
             "Target" = "8:_3702966432304A95B990625F89D182F7"
             "Folder" = "8:_E58E4760083B4A9EA0FEDDBE509E4371"
             "WorkingFolder" = "8:_99569E373469417CB6B72F1C898464F1"
-            "Icon" = "8:"
+            "Icon" = "8:_EDAB25A2F42D4091AA22CB29D948876A"
             "Feature" = "8:"
             }
         }

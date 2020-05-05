@@ -244,6 +244,7 @@ namespace AnnualizedGUI
             this.Controls.Add(this.fundNameLabel);
             this.Controls.Add(this.currentPriceTextBox);
             this.Controls.Add(this.currentNumShares_TextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.Text = "Annualized!";
             this.Load += new System.EventHandler(this.MainWindow_Load);
