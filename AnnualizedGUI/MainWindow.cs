@@ -29,8 +29,8 @@ namespace AnnualizedGUI
 			FundNameNotEntered = 32
 		};
 
-		private Stack<string> backHistoryStack;
-		private Stack<string> forwardHistoryStack;
+		private Stack<string> backHistoryStack;  // contains previous console contents
+		private Stack<string> forwardHistoryStack; // contains more recent console contents than currently displayed
 
 		public MainWindow()
 		{
@@ -111,17 +111,13 @@ namespace AnnualizedGUI
 			}
 			catch 
 			{
-				textBoxConsole.Text = "Couldn't calculate annualized rate for: " + Path.GetFileName(tsvFilePath);
-				textBoxConsole.AppendText(Environment.NewLine + Environment.NewLine);
-				textBoxConsole.AppendText("Check error logs");
-				//MessageBox.Show("Problem processing data", "Error",
-				//MessageBoxButtons.OK, MessageBoxIcon.Error);
+				showAnnualizerErrorMessage(tsvFilePath);
 			}
 
 				
 			annualizer.ResetFundFields();
 
-			// push the nex console content to the history stack
+			// push the console output content to the history stack
 			backHistoryStack.Push(textBoxConsole.Text);
 
 			return;
@@ -162,7 +158,7 @@ namespace AnnualizedGUI
 
 			// Regular processing
 
-			// push the console content to the history stack without checking its validity
+			// push the console input content to the history stack
 			backHistoryStack.Push(textBoxConsole.Text);
 
 			var now = DateTime.Now;
@@ -193,26 +189,21 @@ namespace AnnualizedGUI
 				}
 				catch
 				{
-					textBoxConsole.Text = "Couldn't calculate annualized rate" + Path.GetFileName(tsvFilePath);
-					textBoxConsole.AppendText(Environment.NewLine + Environment.NewLine);
-					textBoxConsole.AppendText("Check error logs");
+					showAnnualizerErrorMessage(tsvFilePath);
 				}
 					
 				annualizer.ResetFundFields();
 			}
 			else
 			{
-				textBoxConsole.Text = "Couldn't create/update data file: " + tsvFilePath + 
-					Environment.NewLine + Environment.NewLine +
-					"\n\nCheck error logs";
-
+				showTsvErrorMessage(tsvFilePath);
 			}
 				
 			sr.Close();
 
 			UpdateFundNameList();
 
-			// push the nex console content to the history stack
+			// push the current console output content to the history stack
 			backHistoryStack.Push(textBoxConsole.Text);
 		}
 
@@ -333,6 +324,25 @@ namespace AnnualizedGUI
 			MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
+		private void showAnnualizerErrorMessage(string tsvFilePath)
+		{
+			string message = "Couldn't calculate annualized rate for: " + Path.GetFileName(tsvFilePath) +
+			Environment.NewLine + Environment.NewLine + "Check error logs.";
+			MessageBox.Show(message, "Processing Problem",
+			MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		private void showTsvErrorMessage(string tsvFilePath)
+		{
+			string message = "Couldn't " + (File.Exists(tsvFilePath)? "update" : "create") + 
+				" data file: " + Path.GetFileName(tsvFilePath) + 
+				" with transaction history as supplied." + Environment.NewLine + Environment.NewLine + 
+				"Check history format / error logs.";
+
+			MessageBox.Show(message, "Processing Problem",
+			MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
 		private void clearFieldsButton_Click(object sender, EventArgs e)
 		{
 			fundNameTextBox.Text = string.Empty;
@@ -341,6 +351,11 @@ namespace AnnualizedGUI
 			currentPriceTextBox.Text = string.Empty;
 		}
 
+		/// <summary>
+		/// Show previous console content
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void backButton_Click(object sender, EventArgs e)
 		{
 			if (backHistoryStack.Count() > 1)
@@ -350,6 +365,11 @@ namespace AnnualizedGUI
 			}			
 		}
 
+		/// <summary>
+		/// Show more recent console content than what is currently shown
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void forwardButton_Click(object sender, EventArgs e)
 		{
 			if (forwardHistoryStack.Count() > 0)
