@@ -58,7 +58,7 @@ namespace AnnualizedGUI
             this.fundNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fundNameLabel.Location = new System.Drawing.Point(260, 45);
             this.fundNameLabel.Name = "fundNameLabel";
-            this.fundNameLabel.Size = new System.Drawing.Size(78, 16);
+            this.fundNameLabel.Size = new System.Drawing.Size(95, 20);
             this.fundNameLabel.TabIndex = 12;
             this.fundNameLabel.Text = "Fund Name";
             this.fundNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -70,7 +70,7 @@ namespace AnnualizedGUI
             this.fundNameTextBox.FormattingEnabled = true;
             this.fundNameTextBox.Location = new System.Drawing.Point(344, 45);
             this.fundNameTextBox.Name = "fundNameTextBox";
-            this.fundNameTextBox.Size = new System.Drawing.Size(366, 21);
+            this.fundNameTextBox.Size = new System.Drawing.Size(366, 24);
             this.fundNameTextBox.TabIndex = 1;
             // 
             // periodsLabel
@@ -79,7 +79,7 @@ namespace AnnualizedGUI
             this.periodsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.periodsLabel.Location = new System.Drawing.Point(283, 86);
             this.periodsLabel.Name = "periodsLabel";
-            this.periodsLabel.Size = new System.Drawing.Size(55, 16);
+            this.periodsLabel.Size = new System.Drawing.Size(66, 20);
             this.periodsLabel.TabIndex = 9;
             this.periodsLabel.Text = "Periods";
             this.periodsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -88,7 +88,7 @@ namespace AnnualizedGUI
             // 
             this.periods_textBox.Location = new System.Drawing.Point(344, 86);
             this.periods_textBox.Name = "periods_textBox";
-            this.periods_textBox.Size = new System.Drawing.Size(366, 20);
+            this.periods_textBox.Size = new System.Drawing.Size(366, 22);
             this.periods_textBox.TabIndex = 2;
             // 
             // getMostRecentButton
@@ -109,7 +109,7 @@ namespace AnnualizedGUI
             this.currentNumSharesLabel.Location = new System.Drawing.Point(182, 131);
             this.currentNumSharesLabel.Name = "currentNumSharesLabel";
             this.currentNumSharesLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.currentNumSharesLabel.Size = new System.Drawing.Size(156, 16);
+            this.currentNumSharesLabel.Size = new System.Drawing.Size(201, 20);
             this.currentNumSharesLabel.TabIndex = 10;
             this.currentNumSharesLabel.Text = "Current number of shares";
             this.currentNumSharesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -118,7 +118,7 @@ namespace AnnualizedGUI
             // 
             this.currentNumShares_TextBox.Location = new System.Drawing.Point(344, 131);
             this.currentNumShares_TextBox.Name = "currentNumShares_TextBox";
-            this.currentNumShares_TextBox.Size = new System.Drawing.Size(148, 20);
+            this.currentNumShares_TextBox.Size = new System.Drawing.Size(148, 22);
             this.currentNumShares_TextBox.TabIndex = 4;
             // 
             // currentPriceLabel
@@ -128,7 +128,7 @@ namespace AnnualizedGUI
             this.currentPriceLabel.Location = new System.Drawing.Point(254, 175);
             this.currentPriceLabel.Name = "currentPriceLabel";
             this.currentPriceLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.currentPriceLabel.Size = new System.Drawing.Size(84, 16);
+            this.currentPriceLabel.Size = new System.Drawing.Size(109, 20);
             this.currentPriceLabel.TabIndex = 11;
             this.currentPriceLabel.Text = "Current Price";
             this.currentPriceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -137,7 +137,7 @@ namespace AnnualizedGUI
             // 
             this.currentPriceTextBox.Location = new System.Drawing.Point(344, 175);
             this.currentPriceTextBox.Name = "currentPriceTextBox";
-            this.currentPriceTextBox.Size = new System.Drawing.Size(148, 20);
+            this.currentPriceTextBox.Size = new System.Drawing.Size(148, 22);
             this.currentPriceTextBox.TabIndex = 5;
             // 
             // textBoxConsole
@@ -154,7 +154,7 @@ namespace AnnualizedGUI
             this.textBoxConsole.Multiline = true;
             this.textBoxConsole.Name = "textBoxConsole";
             this.textBoxConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConsole.Size = new System.Drawing.Size(967, 403);
+            this.textBoxConsole.Size = new System.Drawing.Size(1058, 403);
             this.textBoxConsole.TabIndex = 6;
             // 
             // UpdateAndGetAnnualizedButton
@@ -163,7 +163,7 @@ namespace AnnualizedGUI
             this.UpdateAndGetAnnualizedButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.UpdateAndGetAnnualizedButton.Location = new System.Drawing.Point(797, 139);
             this.UpdateAndGetAnnualizedButton.Name = "UpdateAndGetAnnualizedButton";
-            this.UpdateAndGetAnnualizedButton.Size = new System.Drawing.Size(196, 48);
+            this.UpdateAndGetAnnualizedButton.Size = new System.Drawing.Size(228, 48);
             this.UpdateAndGetAnnualizedButton.TabIndex = 7;
             this.UpdateAndGetAnnualizedButton.Text = "Update and Get Annualized!";
             this.UpdateAndGetAnnualizedButton.UseVisualStyleBackColor = true;
@@ -198,7 +198,7 @@ namespace AnnualizedGUI
             this.consoleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.consoleLabel.Location = new System.Drawing.Point(830, 243);
             this.consoleLabel.Name = "consoleLabel";
-            this.consoleLabel.Size = new System.Drawing.Size(163, 22);
+            this.consoleLabel.Size = new System.Drawing.Size(200, 27);
             this.consoleLabel.TabIndex = 14;
             this.consoleLabel.Text = "Input/Output Console";
             // 
@@ -227,7 +227,7 @@ namespace AnnualizedGUI
             // MainWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1027, 683);
+            this.ClientSize = new System.Drawing.Size(1118, 683);
             this.Controls.Add(this.forwardButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.consoleLabel);
